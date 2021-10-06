@@ -1,0 +1,24 @@
+# Build
+.nuxt
+node_modules
+.npm
+
+# Docker
+.core
+
+# local config
+.env
+
+# RPMS
+x86_64
+
+# IDE
+.idea
+
+# Static pages
+app/views
+dist
+
+# StoryBook
+.nuxt-storybook
+storybook-static

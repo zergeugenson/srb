@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true,
+        "jest/globals": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "prettier",
+        "plugin:prettier/recommended",
+        "plugin:vue/essential"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue",
+        "jest",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "vue/no-use-v-if-with-v-for": 0,
+        "vue/no-parsing-error": ["error", {
+          "invalid-first-character-of-tag-name": false
+        }]
+    }
+}
