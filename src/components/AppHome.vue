@@ -4,8 +4,8 @@
     <input type="text" placeholder="Ваше имя" v-model="name" />
     <input type="text" placeholder="и фамилия" v-model="lastname" />
     <button @click="send">Проверить JSON</button>
-    <p class="result" style="color:blue">
-      {{employees}}
+    <p class="result" v-for="name in employees" :key="name">
+      {{ name.name }}, {{ name.lastname }}
     </p>
   </div>
 </template>
@@ -72,6 +72,7 @@ export default {
         );
         const data = await response.json();
         this.employees = [...this.employees, data];
+        this.getEmployees();
       } catch (error) {
         console.error(error);
       }
