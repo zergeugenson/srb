@@ -24,9 +24,9 @@
           allow="encrypted-media;"
         ></iframe>
       </div>
-      <div v-if="rechnik && rechnik.length">
+      <div v-if="visualRechnik && visualRechnik.length">
         <div class="question">
-          {{ rechnik[current][q_lang] }}
+          {{ visualRechnik[current][q_lang] }}
         </div>
         <div class="reply">
           <input
@@ -79,12 +79,12 @@ export default {
       newWord: { srb: "", rus: "", eng: "" },
       adding: false,
       rechnik: [],
+      visualRechnik: [],
       src: "",
       reply: "",
       current: 0,
       c_lang: "srb",
       q_lang: "rus",
-      learned: [],
       error: false
     };
   },
@@ -105,42 +105,41 @@ export default {
       }
     },
     start() {
-      this._get().then(() => {
+      this._get().then(data => {
+        this.rechnik = data;
+        this.visualRechnik = [...this.rechnik];
         this.nextWord();
       });
     },
     check(next = false) {
-      if (this.rechnik[this.current][this.c_lang] === this.reply || next) {
+      if ( this.visualRechnik[this.current][this.c_lang] === this.reply || next ) {
         this.error = false;
-        this.learned.push(this.rechnik[this.current].id);
+        this.visualRechnik.splice(this.current, 1);
         this.nextWord();
       } else {
         this.error = true;
       }
     },
     nextWord() {
-      this.current = randomInteger(0, this.rechnik.length - 1);
-      if (!this.learned.includes(this.rechnik[this.current].id)) {
+      if (this.visualRechnik.length) {
+        this.current = randomInteger(0, this.visualRechnik.length - 1);
       } else {
-        if (this.rechnik.length === this.learned.length) {
-          this.learned = [];
-        }
-        this.nextWord();
+        this.visualRechnik = [...this.rechnik];
       }
-      // this._pic(this.rechnik[this.current].eng);
+      this._pic(this.rechnik[this.current].eng);
     },
     async _get() {
       try {
         const response = await fetch("/assets/data.json");
-        this.rechnik = await response.json();
+        return await response.json();
       } catch (error) {
         console.error(error);
       }
     },
     async _pic(name = "") {
-      if(!name) {
-        this.src=""
-        return
+      if (!name) {
+        this.src = "";
+        return;
       }
       try {
         const response = await fetch(
