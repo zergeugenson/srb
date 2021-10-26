@@ -42,11 +42,26 @@
       </div>
     </div>
     <div v-else class="adding">
-      <input type="text" placeholder="По-сербски" v-model="srb" />
-      <input type="text" placeholder="По-русски" v-model="rus" />
-      <input type="text" placeholder="По-английски" v-model="eng" style="margin-bottom: 50px;"/>
+      <input
+        type="text"
+        placeholder="По-сербски"
+        v-model="newWord.srb"
+        :class="['reply-input', { error: error }]"
+      />
+      <input
+        type="text"
+        placeholder="По-русски"
+        v-model="newWord.rus"
+        :class="['reply-input', { error: error }]"
+      />
+      <input
+        type="text"
+        placeholder="По-английски"
+        v-model="newWord.eng"
+        style="margin-bottom: 50px;"
+      />
       <button @click="_post">Сохранить</button>
-      <button @click="adding = false">Закончить</button>
+      <button @click="close">Закончить</button>
     </div>
   </div>
 </template>
@@ -61,11 +76,9 @@ export default {
   name: "AppHome",
   data() {
     return {
+      newWord: { srb: "", rus: "", eng: "" },
       adding: false,
       rechnik: [],
-      srb: "",
-      rus: "",
-      eng: "",
       src: "",
       reply: "",
       current: 0,
@@ -79,6 +92,10 @@ export default {
     this.start();
   },
   methods: {
+    close() {
+      this.error = false;
+      this.adding = false;
+    },
     lang(lang) {
       this.q_lang = "srb";
       this.c_lang = "rus";
@@ -110,7 +127,7 @@ export default {
         }
         this.nextWord();
       }
-      this._pic(this.rechnik[this.current].eng);
+      // this._pic(this.rechnik[this.current].eng);
     },
     async _get() {
       try {
@@ -121,6 +138,10 @@ export default {
       }
     },
     async _pic(name = "") {
+      if(!name) {
+        this.src=""
+        return
+      }
       try {
         const response = await fetch(
           "http://api.giphy.com/v1/gifs/search?api_key=I9UZB7EukaGizTaAfND8ABvgASj8kWfm&limit=1&q=" +
@@ -133,13 +154,25 @@ export default {
       }
     },
     async _post() {
+      if (!this.newWord.srb || !this.newWord.rus) {
+        this.error = true;
+        return;
+      }
+      this.rechnik.push({
+        srb: this.newWord.srb,
+        rus: this.newWord.rus,
+        eng: this.newWord.eng,
+        id: Date.now()
+      });
       try {
-        const response = await fetch("/assets/save.php", {
+        const response = await fetch("/assets/replace.php", {
           method: "POST",
-          body: JSON.stringify({ srb: this.srb, rus: this.rus, eng: this.eng, id: Date.now() }),
+          body: JSON.stringify(this.rechnik),
           headers: { "Content-type": "application/json; charset=UTF-8" }
         });
         this.rechnik = await response.json();
+        this.newWord = { srb: "", rus: "", eng: "" };
+        this.error = false;
       } catch (error) {
         console.error(error);
       }
@@ -187,11 +220,11 @@ export default {
     .danger {
       background: #dd2234;
     }
-    .reply-input {
-      margin-bottom: 20px;
-      &.error {
-        border: 1px solid #dd2234;
-      }
+  }
+  .reply-input {
+    margin-bottom: 20px;
+    &.error {
+      border: 1px solid #dd2234;
     }
   }
 }
