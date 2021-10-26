@@ -35,9 +35,12 @@
             v-model="reply"
             :class="['reply-input', { error: error }]"
           />
-          <button @click="check(false)" class="default">Проверь</button>
-          <button @click="check(true)">Помню</button>
-          <button @click="wrong" class="danger">Не помню</button>
+          <button @click="wrong" class="default">Напомни</button>
+          <button @click="check(true)" v-if="!reply">Помню</button>
+          <button @click="check(false)" class="default" v-if="reply">
+            Дальше
+          </button>
+          <!--          <button @click="wrong" class="danger">Не помню</button>-->
         </div>
       </div>
     </div>
@@ -115,16 +118,17 @@ export default {
       });
     },
     check(next = false) {
-      if ( this.visualRechnik[this.current][this.c_lang] === this.reply || next ) {
-        this.error = false;
+      if (next) {
         this.visualRechnik.splice(this.current, 1);
-        this.nextWord();
-      } else {
+      } else if (this.visualRechnik[this.current][this.c_lang] !== this.reply) {
         this.error = true;
+        return;
       }
+      this.nextWord();
     },
     nextWord() {
       this.reply = "";
+      this.error = false;
       if (this.visualRechnik.length) {
         this.current = randomInteger(0, this.visualRechnik.length - 1);
       } else {
@@ -142,7 +146,6 @@ export default {
     },
     async _pic() {
       let name = this.visualRechnik[this.current].eng;
-      console.log("name", name);
       if (!name) {
         this.src = "";
         return;
@@ -154,7 +157,6 @@ export default {
         );
         let q = await response.json();
         this.src = q.data[0].embed_url;
-        console.log("src", this.src)
       } catch (error) {
         console.error(error);
       }
