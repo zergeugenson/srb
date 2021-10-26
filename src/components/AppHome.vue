@@ -35,9 +35,9 @@
             v-model="reply"
             :class="['reply-input', { error: error }]"
           />
-          <button @click="check(false)" class="default">Check</button>
-          <button @click="check(true)">Next</button>
-          <button @click="nextWord" class="danger">Error</button>
+          <button @click="check(false)" class="default">Проверь</button>
+          <button @click="check(true)">Помню</button>
+          <button @click="wrong" class="danger">Не помню</button>
         </div>
       </div>
     </div>
@@ -92,6 +92,9 @@ export default {
     this.start();
   },
   methods: {
+    wrong() {
+      this.reply = this.visualRechnik[this.current][this.c_lang];
+    },
     close() {
       this.error = false;
       this.adding = false;
