@@ -126,7 +126,7 @@ export default {
       } else {
         this.visualRechnik = [...this.rechnik];
       }
-      this._pic(this.rechnik[this.current].eng);
+      this._pic();
     },
     async _get() {
       try {
@@ -136,7 +136,9 @@ export default {
         console.error(error);
       }
     },
-    async _pic(name = "") {
+    async _pic() {
+      let name = this.visualRechnik[this.current].eng;
+      console.log("name", name);
       if (!name) {
         this.src = "";
         return;
@@ -148,6 +150,7 @@ export default {
         );
         let q = await response.json();
         this.src = q.data[0].embed_url;
+        console.log("src", this.src)
       } catch (error) {
         console.error(error);
       }
