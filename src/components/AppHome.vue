@@ -69,8 +69,8 @@ export default {
       src: "",
       reply: "",
       current: 0,
-      c_lang: "rus",
-      q_lang: "srb",
+      c_lang: "srb",
+      q_lang: "rus",
       learned: [],
       error: false
     };
