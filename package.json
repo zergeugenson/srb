@@ -1,9 +1,9 @@
 {
-  "name": "webpack-5-vue-boilerplate",
-  "version": "2.0.0",
-  "description": "A webpack 5 boilerplate with Vue.js",
+  "name": "Serbsky jezik Cards",
+  "version": "1.0.0",
+  "description": "Карточки для изучения сербского языка",
   "main": "main.js",
-  "author": "Per Olsen",
+  "author": "Sergey Khromov",
   "license": "MIT",
   "scripts": {
     "start": "webpack serve --config config/webpack.dev.js --progress",
@@ -11,11 +11,6 @@
     "prod": "http-server ./dist -a localhost -p 8000 -o",
     "lint": "eslint --fix ./ --ext .js,.vue --ignore-path .gitignore ."
   },
-  "keywords": [
-    "webpack",
-    "webpack 5",
-    "webpack boilerplate"
-  ],
   "devDependencies": {
     "@babel/core": "^7.12.1",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -54,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/persteenolsen/webpack-5-vue-boilerplate"
+    "url": "https://github.com/zergeugenson/srb"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
