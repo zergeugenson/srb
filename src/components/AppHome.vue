@@ -124,6 +124,7 @@ export default {
       }
     },
     nextWord() {
+      this.reply = "";
       if (this.visualRechnik.length) {
         this.current = randomInteger(0, this.visualRechnik.length - 1);
       } else {
