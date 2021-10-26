@@ -1,35 +1,133 @@
 <template>
-  <div>
-    <img width="50px" alt="Webpack" src="../images/favicon.png" />
-    <input type="text" placeholder="Ваше имя" v-model="name" />
-    <input type="text" placeholder="и фамилия" v-model="lastname" />
-    <button @click="_post">Проверить JSON</button>
-    <p class="result" v-for="name in employees">
-      {{ name.name }}, {{ name.lastname }}
-    </p>
-    -
-    {{ employees }}
+  <div class="rechnik-page">
+    <div v-if="!adding">
+      <button
+        @click="lang('rus')"
+        :class="['small-button', 'perecluc', { on: q_lang === 'rus' }]"
+      >
+        rus
+      </button>
+      <button
+        @click="lang('srb')"
+        :class="['small-button', 'perecluc', { on: q_lang === 'srb' }]"
+      >
+        srb
+      </button>
+      <button @click="adding = true" class="small-button">add</button>
+      <div class="picture">
+        <iframe
+          :src="src"
+          v-if="src"
+          style="width: 200px; height: 200px; border: 0;"
+          allowfullscreen
+          scrolling="no"
+          allow="encrypted-media;"
+        ></iframe>
+      </div>
+      <div v-if="rechnik && rechnik.length">
+        <div class="question">
+          {{ rechnik[current][q_lang] }}
+        </div>
+        <div class="reply">
+          <input
+            type="text"
+            placeholder="Ответ"
+            v-model="reply"
+            :class="['reply-input', { error: error }]"
+          />
+          <button @click="check(false)" class="default">Check</button>
+          <button @click="check(true)">Next</button>
+          <button @click="nextWord" class="danger">Error</button>
+        </div>
+      </div>
+    </div>
+    <div v-else class="adding">
+      <input type="text" placeholder="По-сербски" v-model="srb" />
+      <input type="text" placeholder="По-русски" v-model="rus" />
+      <input type="text" placeholder="По-английски" v-model="eng" style="margin-bottom: 50px;"/>
+      <button @click="_post">Сохранить</button>
+      <button @click="adding = false">Закончить</button>
+    </div>
   </div>
 </template>
 
 <script>
+//I9UZB7EukaGizTaAfND8ABvgASj8kWfm
+const randomInteger = function(min, max) {
+  let rand = min + Math.random() * (max + 1 - min);
+  return Math.floor(rand);
+};
 export default {
   name: "AppHome",
   data() {
     return {
-      employees: [],
-      name: "",
-      lastname: ""
+      adding: false,
+      rechnik: [],
+      srb: "",
+      rus: "",
+      eng: "",
+      src: "",
+      reply: "",
+      current: 0,
+      c_lang: "rus",
+      q_lang: "srb",
+      learned: [],
+      error: false
     };
   },
   mounted() {
-    this._get();
+    this.start();
   },
   methods: {
+    lang(lang) {
+      this.q_lang = "srb";
+      this.c_lang = "rus";
+      if (lang === "rus") {
+        this.q_lang = "rus";
+        this.c_lang = "srb";
+      }
+    },
+    start() {
+      this._get().then(() => {
+        this.nextWord();
+      });
+    },
+    check(next = false) {
+      if (this.rechnik[this.current][this.c_lang] === this.reply || next) {
+        this.error = false;
+        this.learned.push(this.rechnik[this.current].id);
+        this.nextWord();
+      } else {
+        this.error = true;
+      }
+    },
+    nextWord() {
+      this.current = randomInteger(0, this.rechnik.length - 1);
+      if (!this.learned.includes(this.rechnik[this.current].id)) {
+      } else {
+        if (this.rechnik.length === this.learned.length) {
+          this.learned = [];
+        }
+        this.nextWord();
+      }
+      this._pic(this.rechnik[this.current].eng);
+    },
     async _get() {
       try {
         const response = await fetch("/assets/data.json");
-        this.employees = await response.json();
+        this.rechnik = await response.json();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async _pic(name = "") {
+      try {
+        const response = await fetch(
+          "http://api.giphy.com/v1/gifs/search?api_key=I9UZB7EukaGizTaAfND8ABvgASj8kWfm&limit=1&q=" +
+            name
+        );
+        let q = await response.json();
+        this.src = q.data[0].embed_url;
       } catch (error) {
         console.error(error);
       }
@@ -38,10 +136,10 @@ export default {
       try {
         const response = await fetch("/assets/save.php", {
           method: "POST",
-          body: JSON.stringify({ name: this.name, lastname: this.lastname }),
+          body: JSON.stringify({ srb: this.srb, rus: this.rus, eng: this.eng, id: Date.now() }),
           headers: { "Content-type": "application/json; charset=UTF-8" }
         });
-        this.employees = await response.json();
+        this.rechnik = await response.json();
       } catch (error) {
         console.error(error);
       }
@@ -50,4 +148,51 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.rechnik-page {
+  .adding {
+    text-align: center;
+    padding-top: 50px;
+  }
+  .small-button {
+    border: none;
+    background: red;
+    font-size: 12px;
+    padding: 4px 5px;
+    margin: 10px 3px;
+    &.perecluc {
+      background: #0366ee;
+    }
+    &.on {
+      opacity: 0.3;
+    }
+  }
+  .picture {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .question {
+    font-weight: 500;
+    font-size: 24px;
+    text-align: center;
+    margin: 20px auto;
+  }
+  .reply {
+    text-align: center;
+    .default {
+      background: #0366ee;
+    }
+    .danger {
+      background: #dd2234;
+    }
+    .reply-input {
+      margin-bottom: 20px;
+      &.error {
+        border: 1px solid #dd2234;
+      }
+    }
+  }
+}
+</style>
