@@ -26,7 +26,7 @@
       </div>
       <div v-if="visualRechnik && visualRechnik.length">
         <div class="question">
-          {{ visualRechnik[current][q_lang] }}
+          {{ visualRechnik[current][q_lang] | ucFirst}}
         </div>
         <div class="reply">
           <input
@@ -71,10 +71,31 @@
 
 <script>
 //I9UZB7EukaGizTaAfND8ABvgASj8kWfm
+
 const randomInteger = function(min, max) {
   let rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 };
+
+const SerbLowerCase = str => {
+  return Array.from(str).reduce((word, letter) => {
+    switch(letter) {
+      case 'C':
+        letter = 'ć';
+        break;
+      case 'D':
+        letter = 'đ';
+        break;
+      case 'S':
+        letter = 'ŝ';
+    }
+    // ć U+0107 &#263;
+    // đ U+0111 &#273;
+    // ŝ U+015D &#349;
+    return (word += letter);
+  }, "");
+};
+
 export default {
   name: "AppHome",
   data() {
@@ -93,6 +114,7 @@ export default {
   },
   mounted() {
     this.start();
+    console.log(SerbLowerCase('Date CimeR'))
   },
   methods: {
     wrong() {
@@ -149,6 +171,8 @@ export default {
       if (!name) {
         this.src = "";
         return;
+      } else {
+        name.replace(/\s/g, "%20");
       }
       try {
         const response = await fetch(
@@ -167,7 +191,7 @@ export default {
         return;
       }
       this.rechnik.push({
-        srb: this.newWord.srb,
+        srb: SerbLowerCase(this.newWord.srb),
         rus: this.newWord.rus,
         eng: this.newWord.eng,
         id: Date.now()
@@ -185,7 +209,16 @@ export default {
         console.error(error);
       }
     }
-  }
+  },
+  filters:{
+    toSerb: (str) => {
+
+    },
+    ucFirst: str => {
+      if (!str) return str;
+      return str[0].toUpperCase() + str.slice(1);
+    }
+  },
 };
 </script>
 
