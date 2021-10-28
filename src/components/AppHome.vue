@@ -26,7 +26,7 @@
       </div>
       <div v-if="visualRechnik && visualRechnik.length">
         <div class="question">
-          {{ visualRechnik[current][q_lang] | ucFirst}}
+          {{ visualRechnik[current][q_lang] | ucFirst }}
         </div>
         <div class="reply">
           <input
@@ -40,7 +40,10 @@
           <button @click="check(false)" class="default" v-if="reply">
             Дальше
           </button>
-          <!--          <button @click="wrong" class="danger">Не помню</button>-->
+
+          <br /><br />
+          <button @click="post" class="danger">TEST</button>
+          <br /><br />
         </div>
       </div>
     </div>
@@ -79,15 +82,15 @@ const randomInteger = function(min, max) {
 
 const SerbLowerCase = str => {
   return Array.from(str).reduce((word, letter) => {
-    switch(letter) {
-      case 'C':
-        letter = 'ć';
+    switch (letter) {
+      case "C":
+        letter = "ć";
         break;
-      case 'D':
-        letter = 'đ';
+      case "D":
+        letter = "đ";
         break;
-      case 'S':
-        letter = 'ŝ';
+      case "S":
+        letter = "ŝ";
     }
     // ć U+0107 &#263;
     // đ U+0111 &#273;
@@ -102,7 +105,6 @@ export default {
     return {
       newWord: { srb: "", rus: "", eng: "" },
       adding: false,
-      rechnik: [],
       visualRechnik: [],
       src: "",
       reply: "",
@@ -112,11 +114,22 @@ export default {
       error: false
     };
   },
+  computed: {
+    rechnik() {
+      return this.$store.getters["getRechnik"];
+    }
+  },
   mounted() {
-    this.start();
-    console.log(SerbLowerCase('Date CimeR'))
+    // this.start();
+    this.GetRechnik();
   },
   methods: {
+    async GetRechnik() {
+      await this.$store.dispatch("_get").then( (res) => {
+        this.visualRechnik = this.$store.getters["getRechnik"];
+        console.log("res", res)
+      })
+    },
     wrong() {
       this.reply = this.visualRechnik[this.current][this.c_lang];
     },
@@ -167,6 +180,7 @@ export default {
       }
     },
     async _pic() {
+      return;
       let name = this.visualRechnik[this.current].eng;
       if (!name) {
         this.src = "";
@@ -185,6 +199,17 @@ export default {
         console.error(error);
       }
     },
+    async post() {
+      // this.$store.dispatch("post", this.rechnik)
+      const success = await this.$store.dispatch("_post", this.rechnik);
+      if (success) {
+        // await router.push({ path: `/cpo/${shopId}/list-trading-rule` })
+        // $toast.success('Правило создано')
+      } else {
+        // $toast.error(store.getters['cpo/sale-rules/getError'])
+      }
+    },
+
     async _post() {
       if (!this.newWord.srb || !this.newWord.rus) {
         this.error = true;
@@ -210,15 +235,13 @@ export default {
       }
     }
   },
-  filters:{
-    toSerb: (str) => {
-
-    },
+  filters: {
+    toSerb: str => {},
     ucFirst: str => {
       if (!str) return str;
       return str[0].toUpperCase() + str.slice(1);
     }
-  },
+  }
 };
 </script>
 
