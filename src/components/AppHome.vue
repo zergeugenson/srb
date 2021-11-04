@@ -91,10 +91,13 @@ const SerbLowerCase = str => {
         break;
       case "S":
         letter = "ŝ";
+      case "Z":
+        letter = "ž";
     }
     // ć U+0107 &#263;
     // đ U+0111 &#273;
     // ŝ U+015D &#349;
+    // ž U+017D &#382;
     return (word += letter);
   }, "");
 };
