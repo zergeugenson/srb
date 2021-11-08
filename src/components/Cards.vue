@@ -161,9 +161,6 @@ export default {
       this._pic();
     },
     async _pic() {
-
-      return
-
       let name = this.visualRechnik[this.current].eng;
       if (!name) {
         this.src = "";
