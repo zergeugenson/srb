@@ -75,10 +75,7 @@
 <script>
 //I9UZB7EukaGizTaAfND8ABvgASj8kWfm
 
-const randomInteger = function(min, max) {
-  let rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-};
+import { shaffle } from "../js/common.js";
 
 const SerbLowerCase = str => {
   return Array.from(str).reduce((word, letter) => {
@@ -122,8 +119,8 @@ export default {
   },
   methods: {
     async GetRechnik() {
-      await this.$store.dispatch("_get").then( res => {
-        this.visualRechnik = [...this.$store.getters["getRechnik"]];
+      await this.$store.dispatch("_get").then(() => {
+        this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
         this.nextWord();
       });
     },
@@ -133,7 +130,7 @@ export default {
     close() {
       this.error = false;
       this.adding = false;
-      this.visualRechnik = [...this.$store.getters["getRechnik"]];
+      this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
     },
     lang(lang) {
       this.q_lang = "srb";
@@ -150,13 +147,14 @@ export default {
         this.error = true;
         return;
       }
+      this.visualRechnik = shaffle(this.visualRechnik);
       this.nextWord();
     },
     nextWord() {
       this.reply = "";
       this.error = false;
       if (!this.visualRechnik.length) {
-        this.visualRechnik = [...this.$store.getters["getRechnik"]];
+        this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
       }
       this._pic();
     },
@@ -198,7 +196,7 @@ export default {
       } else {
         console.error("Ошибка записи");
       }
-    },
+    }
   },
   filters: {
     ucFirst: str => {

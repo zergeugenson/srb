@@ -10,7 +10,7 @@
           <th @click="SortRechnik('srb')">Srb</th>
           <th @click="SortRechnik('rus')">Rus</th>
           <th @click="SortRechnik('eng')">Eng</th>
-          <th>Actions</th>
+          <th class="actions">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -82,6 +82,7 @@ export default {
 .administration {
   .actions {
     white-space: nowrap;
+    max-width: 60px;
     button {
       margin: 0 0.5rem 0 0;
     }
