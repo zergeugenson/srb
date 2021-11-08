@@ -103,7 +103,7 @@ const SerbLowerCase = str => {
 };
 
 export default {
-  name: "AppHome",
+  name: "Cards",
   data() {
     return {
       newWord: { srb: "", rus: "", eng: "" },

@@ -1,23 +1,22 @@
-import AppHome from "./components/AppHome.vue";
-import AppList from "./components/AppList.vue";
-
-import AppError from "./components/AppError.vue";
+import Cards from "./components/Cards";
+import Admin from "./components/Admin";
+import Err404 from "./components/Err404";
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: AppHome
+    name: "Cards",
+    component: Cards
   },
   {
-    path: "/employee",
-    name: "Web API",
-    component: AppList
+    path: "/admin",
+    name: "Admin",
+    component: Admin
   },
   {
     path: "/*",
-    name: "Secret",
-    component: AppError
+    name: "Err404",
+    component: Err404
   }
 ];
 

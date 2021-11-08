@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "AppError"
+  name: "Err404"
 };
 </script>
 
