@@ -26,22 +26,16 @@
       </div>
       <div v-if="visualRechnik && visualRechnik.length">
         <div class="question">
-          {{ visualRechnik[current][q_lang] | ucFirst }}
+          {{ visualRechnik[current][c_lang] | ucFirst }}
         </div>
         <div class="reply">
-          <input
-            type="text"
-            placeholder="Ответ"
-            v-model="reply"
-            :class="['reply-input', { error: error }]"
-            v-if="q_lang === 'srb'"
-          />
-          <div v-else class="reply-input">
-            {{ reply || " " }}
+          <div class="reply-input">
+            <span v-if="showReply">{{ visualRechnik[current][q_lang] | ucFirst }}</span>
+            &nbsp;
           </div>
-          <button @click="wrong" class="default">Напомни</button>
-          <button @click="check(true)" v-if="!reply">Помню</button>
-          <button @click="check(false)" class="default" v-if="reply">
+          <button @click="remember" class="default">Напомни</button>
+          <button @click="nextWord(true)" v-if="!showReply">Помню</button>
+          <button @click="nextWord(false)" class="default" v-else>
             Дальше
           </button>
         </div>
@@ -107,11 +101,11 @@ export default {
       adding: false,
       visualRechnik: [],
       src: "",
-      reply: "",
       current: 0,
       c_lang: "srb",
       q_lang: "rus",
-      error: false
+      error: false,
+      showReply: false,
     };
   },
   mounted() {
@@ -124,8 +118,8 @@ export default {
         this.nextWord();
       });
     },
-    wrong() {
-      this.reply = this.visualRechnik[this.current][this.c_lang];
+    remember() {
+      this.showReply = true;
     },
     close() {
       this.error = false;
@@ -140,23 +134,17 @@ export default {
         this.c_lang = "srb";
       }
     },
-    check(next = false) {
+    nextWord(next = false) {
+      this.showReply = false;
       if (next) {
         this.visualRechnik.splice(this.current, 1);
-      } else if (this.visualRechnik[this.current][this.c_lang] !== this.reply) {
-        this.error = true;
-        return;
+      } else {
+        this.visualRechnik = shaffle(this.visualRechnik);
       }
-      this.visualRechnik = shaffle(this.visualRechnik);
-      this.nextWord();
-    },
-    nextWord() {
-      this.reply = "";
-      this.error = false;
       if (!this.visualRechnik.length) {
         this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
       }
-      this._pic();
+      // this._pic();
     },
     async _pic() {
       let name = this.visualRechnik[this.current].eng;
@@ -236,16 +224,12 @@ export default {
     .danger {
       background: #dd2234;
     }
-  }
-  .reply-input {
-    margin-bottom: 20px;
-    &.error {
-      border: 1px solid #dd2234;
+    .reply-input {
+      height: 54px;
+      padding: 13px;
+      margin-bottom: 20px;
     }
   }
-  div.reply-input {
-    height: 54px;
-    padding: 13px;
-  }
+
 }
 </style>
