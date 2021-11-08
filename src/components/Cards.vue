@@ -149,7 +149,7 @@ export default {
       if (!this.visualRechnik.length) {
         this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
       }
-      // this._pic();
+      this._pic();
     },
     async _pic() {
       let name = this.visualRechnik[this.current].eng;
