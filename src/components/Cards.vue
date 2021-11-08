@@ -218,19 +218,6 @@ export default {
     text-align: center;
     padding-top: 50px;
   }
-  .small-button {
-    border: none;
-    background: red;
-    font-size: 12px;
-    padding: 4px 5px;
-    margin: 10px 3px;
-    &.perecluc {
-      background: #0366ee;
-    }
-    &.on {
-      opacity: 0.3;
-    }
-  }
   .picture {
     width: 100%;
     height: 200px;

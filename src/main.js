@@ -7,10 +7,10 @@ import routes from "./routes";
 import store from "./store";
 
 Vue.use(VueRouter);
+
 const router = new VueRouter({
   routes,
-  linkActiveClass: "active",
-  mode: "history"
+  linkActiveClass: "active"
 });
 
 new Vue({

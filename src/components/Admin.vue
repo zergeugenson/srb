@@ -1,39 +1,37 @@
 <template>
-  <div id="employee-table" class="table-responsive">
-    <p v-if="employees.length < 1" class="empty-table">
-      No employees
+  <div class="administration">
+    <p v-if="rechnik.length < 1" class="empty-table">
+      Нет слов!
     </p>
     <table v-else>
       <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Actions</th>
-      </tr>
+        <tr>
+          <th @click="SortRechnik('srb')">Srb</th>
+          <th @click="SortRechnik('rus')">Rus</th>
+          <th @click="SortRechnik('eng')">Eng</th>
+          <th>Actions</th>
+        </tr>
       </thead>
       <tbody>
-      <tr :key="employee.id" v-for="employee in employees">
-        <td v-if="editing === employee.id">
-          <input type="text" v-model="employee.name" />
-        </td>
-        <td v-else>{{ employee.name }}</td>
-        <td v-if="editing === employee.id">
-          <input type="text" v-model="employee.email" />
-        </td>
-        <td v-else>{{ employee.email }}</td>
-        <td v-if="editing === employee.id">
-          <button @click="editEmployee(employee)">Save</button>
-          <button class="muted-button" @click="cancelEdit(employee)">
-            Cancel
-          </button>
-        </td>
-        <td v-else>
-          <button @click="editMode(employee)">Edit</button>
-          <button @click="$emit('delete:employee', employee.id)">
-            Delete
-          </button>
-        </td>
-      </tr>
+        <tr :key="word.id" v-for="word in rechnik">
+          <td>
+            <input type="text" v-model="word.srb" />
+          </td>
+          <td>
+            <input type="text" v-model="word.rus" />
+          </td>
+          <td>
+            <input type="text" v-model="word.eng" />
+          </td>
+          <td class="actions">
+            <button class="small-button" @click="DeleteWord(word)">
+              Delete
+            </button>
+            <button class="small-button perecluc" @click="EditWord(word)">
+              Edit
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -41,50 +39,57 @@
 
 <script>
 export default {
-  name: "employee-table",
-  props: {
-    employees: Array
-  },
+  name: "Admin",
   data() {
     return {
-      editing: null
+      sort: false,
     };
   },
   computed: {
-    list() {
-      return this.$store.getters['cpo-order/getList']
-    },
+    rechnik() {
+      return this.$store.getters["getRechnik"];
+    }
+  },
+  mounted() {
+    this.GetRechnik();
+    setTimeout(() => {
+      this.SortRechnik("srb");
+    }, 250);
   },
   methods: {
-    editMode(employee) {
-      this.cachedEmployee = Object.assign({}, employee);
-      this.editing = employee.id;
+    async GetRechnik() {
+      await this.$store.dispatch("_get");
     },
-
-    cancelEdit(employee) {
-      Object.assign(employee, this.cachedEmployee);
-      this.editing = null;
+    async DeleteWord(word) {
+      this.$store.commit("deleteWord", word);
+      await this.$store.dispatch("_post");
     },
-
-    editEmployee(employee) {
-      if (employee.name === "" || employee.email === "") return;
-      this.$emit("edit:employee", employee.id, employee);
-      this.editing = null;
+    async EditWord(word) {
+      this.$store.commit("editWord", word);
+      await this.$store.dispatch("_post");
+    },
+    SortRechnik(field = "srb") {
+      this.rechnik.sort((a, b) => a[field].localeCompare(b[field]));
+      if(this.sort) this.rechnik.reverse();
+      this.sort = !this.sort;
     }
   }
 };
 </script>
 
-<style scoped>
-button {
-  margin: 0 0.5rem 0 0;
-}
-
-input {
-  margin: 0;
-}
-
-.empty-table {
-  text-align: center;
+<style scoped lang="scss">
+.administration {
+  .actions {
+    white-space: nowrap;
+    button {
+      margin: 0 0.5rem 0 0;
+    }
+  }
+  th {
+    cursor: pointer;
+  }
+  .empty-table {
+    text-align: center;
+  }
 }
 </style>
