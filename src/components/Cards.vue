@@ -102,8 +102,8 @@ export default {
       visualRechnik: [],
       src: "",
       current: 0,
-      c_lang: "srb",
-      q_lang: "rus",
+      q_lang: "srb",
+      c_lang: "rus",
       error: false,
       showReply: false,
     };
