@@ -4,33 +4,21 @@ export default {
       const response = await fetch("/assets/data.json");
       let res = await response.json();
       commit("setRechnik", res);
+      return res;
     } catch (error) {
       console.error(error);
     }
   },
-  async _post({ commit, getters }, payload) {
-    console.log("payload", payload);
-    return;
-
-    if (!this.newWord.srb || !this.newWord.rus) {
-      this.error = true;
-      return;
-    }
-    this.rechnik.push({
-      srb: SerbLowerCase(this.newWord.srb),
-      rus: this.newWord.rus,
-      eng: this.newWord.eng,
-      id: Date.now()
-    });
+  async _post({ commit, state }) {
     try {
       const response = await fetch("/assets/replace.php", {
         method: "POST",
-        body: JSON.stringify(this.rechnik),
+        body: JSON.stringify(state.rechnik),
         headers: { "Content-type": "application/json; charset=UTF-8" }
       });
-      this.rechnik = await response.json();
-      this.newWord = { srb: "", rus: "", eng: "" };
-      this.error = false;
+      let res = await response.json();
+      commit("setRechnik", res);
+      return res;
     } catch (error) {
       console.error(error);
     }

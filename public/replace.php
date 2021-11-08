@@ -9,8 +9,8 @@ if (file_exists($filename)) {
     $file = fopen($filename, "a+");
 }
 $backup = fopen($backupname, "a+");
-file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
-file_put_contents($backupname, json_encode($data, JSON_PRETTY_PRINT));
+file_put_contents($filename, json_encode($data));
+file_put_contents($backupname, json_encode($data));
 $file = file_get_contents('data.json');
 echo $file;
 unset($file);

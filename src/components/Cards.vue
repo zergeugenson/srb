@@ -40,10 +40,6 @@
           <button @click="check(false)" class="default" v-if="reply">
             Дальше
           </button>
-
-          <br /><br />
-          <button @click="post" class="danger">TEST</button>
-          <br /><br />
         </div>
       </div>
     </div>
@@ -66,7 +62,7 @@
         v-model="newWord.eng"
         style="margin-bottom: 50px;"
       />
-      <button @click="_post">Сохранить</button>
+      <button @click="post">Сохранить</button>
       <button @click="close">Закончить</button>
     </div>
   </div>
@@ -117,21 +113,15 @@ export default {
       error: false
     };
   },
-  computed: {
-    rechnik() {
-      return this.$store.getters["getRechnik"];
-    }
-  },
   mounted() {
-    // this.start();
     this.GetRechnik();
   },
   methods: {
     async GetRechnik() {
-      await this.$store.dispatch("_get").then( (res) => {
+      await this.$store.dispatch("_get").then( res => {
         this.visualRechnik = this.$store.getters["getRechnik"];
-        console.log("res", res)
-      })
+        this.nextWord();
+      });
     },
     wrong() {
       this.reply = this.visualRechnik[this.current][this.c_lang];
@@ -148,13 +138,6 @@ export default {
         this.c_lang = "srb";
       }
     },
-    start() {
-      this._get().then(data => {
-        this.rechnik = data;
-        this.visualRechnik = [...this.rechnik];
-        this.nextWord();
-      });
-    },
     check(next = false) {
       if (next) {
         this.visualRechnik.splice(this.current, 1);
@@ -170,20 +153,11 @@ export default {
       if (this.visualRechnik.length) {
         this.current = randomInteger(0, this.visualRechnik.length - 1);
       } else {
-        this.visualRechnik = [...this.rechnik];
+        this.visualRechnik = this.$store.getters["getRechnik"];
       }
       this._pic();
     },
-    async _get() {
-      try {
-        const response = await fetch("/assets/data.json");
-        return await response.json();
-      } catch (error) {
-        console.error(error);
-      }
-    },
     async _pic() {
-      return;
       let name = this.visualRechnik[this.current].eng;
       if (!name) {
         this.src = "";
@@ -203,43 +177,28 @@ export default {
       }
     },
     async post() {
-      // this.$store.dispatch("post", this.rechnik)
-      const success = await this.$store.dispatch("_post", this.rechnik);
-      if (success) {
-        // await router.push({ path: `/cpo/${shopId}/list-trading-rule` })
-        // $toast.success('Правило создано')
-      } else {
-        // $toast.error(store.getters['cpo/sale-rules/getError'])
-      }
-    },
-
-    async _post() {
       if (!this.newWord.srb || !this.newWord.rus) {
         this.error = true;
         return;
       }
-      this.rechnik.push({
-        srb: SerbLowerCase(this.newWord.srb),
-        rus: this.newWord.rus,
-        eng: this.newWord.eng,
-        id: Date.now()
-      });
-      try {
-        const response = await fetch("/assets/replace.php", {
-          method: "POST",
-          body: JSON.stringify(this.rechnik),
-          headers: { "Content-type": "application/json; charset=UTF-8" }
-        });
-        this.rechnik = await response.json();
+      this.$store.commit("addWord", [
+        {
+          srb: SerbLowerCase(this.newWord.srb),
+          rus: this.newWord.rus,
+          eng: this.newWord.eng,
+          id: Date.now()
+        }
+      ]);
+      const success = await this.$store.dispatch("_post");
+      if (success) {
         this.newWord = { srb: "", rus: "", eng: "" };
         this.error = false;
-      } catch (error) {
-        console.error(error);
+      } else {
+        console.error("Ошибка записи");
       }
-    }
+    },
   },
   filters: {
-    toSerb: str => {},
     ucFirst: str => {
       if (!str) return str;
       return str[0].toUpperCase() + str.slice(1);
@@ -250,6 +209,9 @@ export default {
 
 <style scoped lang="scss">
 .rechnik-page {
+  padding: 15px;
+  max-width: 640px;
+  margin: auto;
   .adding {
     text-align: center;
     padding-top: 50px;
