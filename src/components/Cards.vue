@@ -185,21 +185,12 @@ export default {
         return;
       }
 
-      let w = {
+      this.$store.commit("addWord", {
         srb: SerbLowerCase(this.newWord.srb),
         rus: this.newWord.rus,
         eng: this.newWord.eng,
         id: Date.now()
-      }
-
-
-
-
-
-
-
-
-      this.$store.commit("addWord", w);
+      });
       const success = await this.$store.dispatch("_post");
       if (success) {
         this.newWord = { srb: "", rus: "", eng: "" };
