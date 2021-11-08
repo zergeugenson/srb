@@ -1,5 +1,6 @@
 <template>
   <div class="administration">
+    <button onClick="window.location.replace('/')" class="small-button perecluc">Назад</button>
     <p v-if="rechnik.length < 1" class="empty-table">
       Нет слов!
     </p>
