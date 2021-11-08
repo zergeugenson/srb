@@ -34,7 +34,11 @@
             placeholder="Ответ"
             v-model="reply"
             :class="['reply-input', { error: error }]"
+            v-if="q_lang === 'srb'"
           />
+          <div v-else class="reply-input">
+            {{ reply || " " }}
+          </div>
           <button @click="wrong" class="default">Напомни</button>
           <button @click="check(true)" v-if="!reply">Помню</button>
           <button @click="check(false)" class="default" v-if="reply">
@@ -119,7 +123,7 @@ export default {
   methods: {
     async GetRechnik() {
       await this.$store.dispatch("_get").then( res => {
-        this.visualRechnik = this.$store.getters["getRechnik"];
+        this.visualRechnik = [...this.$store.getters["getRechnik"]];
         this.nextWord();
       });
     },
@@ -129,6 +133,7 @@ export default {
     close() {
       this.error = false;
       this.adding = false;
+      this.visualRechnik = [...this.$store.getters["getRechnik"]];
     },
     lang(lang) {
       this.q_lang = "srb";
@@ -150,14 +155,15 @@ export default {
     nextWord() {
       this.reply = "";
       this.error = false;
-      if (this.visualRechnik.length) {
-        this.current = randomInteger(0, this.visualRechnik.length - 1);
-      } else {
-        this.visualRechnik = this.$store.getters["getRechnik"];
+      if (!this.visualRechnik.length) {
+        this.visualRechnik = [...this.$store.getters["getRechnik"]];
       }
       this._pic();
     },
     async _pic() {
+
+      return
+
       let name = this.visualRechnik[this.current].eng;
       if (!name) {
         this.src = "";
@@ -181,14 +187,22 @@ export default {
         this.error = true;
         return;
       }
-      this.$store.commit("addWord", [
-        {
-          srb: SerbLowerCase(this.newWord.srb),
-          rus: this.newWord.rus,
-          eng: this.newWord.eng,
-          id: Date.now()
-        }
-      ]);
+
+      let w = {
+        srb: SerbLowerCase(this.newWord.srb),
+        rus: this.newWord.rus,
+        eng: this.newWord.eng,
+        id: Date.now()
+      }
+
+
+
+
+
+
+
+
+      this.$store.commit("addWord", w);
       const success = await this.$store.dispatch("_post");
       if (success) {
         this.newWord = { srb: "", rus: "", eng: "" };
@@ -255,6 +269,10 @@ export default {
     &.error {
       border: 1px solid #dd2234;
     }
+  }
+  div.reply-input {
+    height: 54px;
+    padding: 13px;
   }
 }
 </style>

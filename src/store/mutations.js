@@ -3,8 +3,7 @@ export default {
     return (state.rechnik = rechnik);
   },
   addWord: (state, word) => {
-    let q = state.rechnik.concat(word);
-    state.rechnik = [].concat(q);
+    state.rechnik.push(word);
     return state.rechnik;
   }
 };
