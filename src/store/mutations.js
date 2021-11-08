@@ -13,10 +13,10 @@ export default {
   },
   editWord: (state, word) => {
     state.rechnik = state.rechnik.map(w => {
-      if(w.id === word.id) {
-        return word
+      if (w.id === word.id) {
+        return word;
       }
-      return w
+      return w;
     });
   }
 };

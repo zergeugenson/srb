@@ -108,13 +108,18 @@ export default {
       showReply: false,
     };
   },
+  computed: {
+    rechnik() {
+      return this.$store.getters["getShaffledRechnik"];
+    }
+  },
   mounted() {
     this.GetRechnik();
   },
   methods: {
     async GetRechnik() {
       await this.$store.dispatch("_get").then(() => {
-        this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
+        this.visualRechnik = [...this.rechnik];
         this.nextWord();
       });
     },
@@ -124,7 +129,7 @@ export default {
     close() {
       this.error = false;
       this.adding = false;
-      this.visualRechnik = [...this.$store.getters["getShaffledRechnik"]];
+      this.visualRechnik = [...this.rechnik];
     },
     lang(lang) {
       this.q_lang = "srb";
