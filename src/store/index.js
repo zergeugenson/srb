@@ -8,7 +8,8 @@ import actions from "./actions";
 
 export default new Vuex.Store({
   state: {
-    rechnik: []
+    rechnik: [],
+    hiddenWords: []
   },
   mutations,
   getters,

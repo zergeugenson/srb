@@ -15,6 +15,9 @@
     &.perecluc {
       background: $default-button;
     }
+    &.off {
+      background: $off-button;
+    }
     &.on {
       opacity: 0.3;
     }
