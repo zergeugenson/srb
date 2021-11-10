@@ -1,6 +1,11 @@
 <template>
   <div class="administration">
-    <button onClick="window.location.replace('/')" class="small-button perecluc">Назад</button>
+    <button
+      onClick="window.location.replace('/')"
+      class="small-button perecluc"
+    >
+      Назад
+    </button>
     <p v-if="rechnik.length < 1" class="empty-table">
       Нет слов!
     </p>
@@ -39,11 +44,13 @@
 </template>
 
 <script>
+import { SerbLowerCase } from "./Cards.vue";
+
 export default {
   name: "Admin",
   data() {
     return {
-      sort: false,
+      sort: false
     };
   },
   computed: {
@@ -66,12 +73,13 @@ export default {
       await this.$store.dispatch("_post");
     },
     async EditWord(word) {
+      word.srb = SerbLowerCase(word.srb);
       this.$store.commit("editWord", word);
       await this.$store.dispatch("_post");
     },
     SortRechnik(field = "srb") {
       this.rechnik.sort((a, b) => a[field].localeCompare(b[field]));
-      if(this.sort) this.rechnik.reverse();
+      if (this.sort) this.rechnik.reverse();
       this.sort = !this.sort;
     }
   }

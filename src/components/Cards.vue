@@ -71,7 +71,7 @@
 
 import { shaffle } from "../js/common.js";
 
-const SerbLowerCase = str => {
+export const SerbLowerCase = str => {
   return Array.from(str).reduce((word, letter) => {
     switch (letter) {
       case "C":
@@ -82,6 +82,7 @@ const SerbLowerCase = str => {
         break;
       case "S":
         letter = "ŝ";
+        break;
       case "Z":
         letter = "ž";
     }
