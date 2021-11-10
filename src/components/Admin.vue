@@ -36,7 +36,7 @@
             <button class="small-button perecluc" @click="EditWord(word)">
               Edit
             </button>
-            <button class="small-button off" @click="HideWord(word)">
+            <button class="small-button button-hide" @click="HideWord(word)">
               {{ hiddenWords.includes(word.id) ? "Show" : "Hide" }}
             </button>
           </td>

@@ -12,7 +12,7 @@ export default {
   getFullRechnik: state => {
     return state.rechnik;
   },
-  getShaffledRechnik: state => {
-    return shaffle(state.rechnik);
+  getShaffledRechnik: (state, getters) => {
+    return shaffle(getters.getRechnik);
   }
 };

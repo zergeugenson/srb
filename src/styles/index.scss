@@ -12,10 +12,12 @@
     font-size: 12px;
     padding: 4px 5px;
     margin: 10px 3px;
+  }
+  button {
     &.perecluc {
       background: $default-button;
     }
-    &.off {
+    &.button-hide {
       background: $off-button;
     }
     &.on {
