@@ -37,7 +37,7 @@
               Edit
             </button>
             <button class="small-button off" @click="HideWord(word)">
-              {{ hiddenWords.includes(word.id) ? "Hide" : "Show" }}
+              {{ hiddenWords.includes(word.id) ? "Show" : "Hide" }}
             </button>
           </td>
         </tr>

@@ -11,30 +11,17 @@ export default {
   },
   hideWord: (state, id) => {
     if (state.hiddenWords.includes(id)) {
-      const index = state.hiddenWords.indexOf(id);
-      if (index > -1) {
-        state.hiddenWords.splice(index, 1);
-      }
+      state.hiddenWords = state.hiddenWords.filter(item => item !== id);
     } else {
       state.hiddenWords.push(id);
     }
     return state.hiddenWords;
   },
   deleteWord: (state, word) => {
-    state.rechnik = state.rechnik.filter(w => {
-      return w.id !== word.id;
-    });
-    const index = state.hiddenWords.indexOf(word.id);
-    if (index > -1) {
-      state.hiddenWords.splice(index, 1);
-    }
+    state.rechnik = state.rechnik.filter(w => w.id !== word.id);
+    state.hiddenWords = state.hiddenWords.filter(item => item !== word.id);
   },
   editWord: (state, word) => {
-    state.rechnik = state.rechnik.map(w => {
-      if (w.id === word.id) {
-        return word;
-      }
-      return w;
-    });
+    state.rechnik = state.rechnik.map(w => (w.id === word.id ? word : w));
   }
 };

@@ -26,7 +26,7 @@ export default {
       console.error(error);
     }
   },
-  async _hide({ commit, state }) {
+  async _hide({ state }) {
     try {
       const response = await fetch("/assets/hide.php", {
         method: "POST",
@@ -34,7 +34,6 @@ export default {
         headers: { "Content-type": "application/json; charset=UTF-8" }
       });
       return await response.json();
-      // commit("setHidden", res);
     } catch (error) {
       console.error(error);
     }
