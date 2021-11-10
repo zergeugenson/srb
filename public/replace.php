@@ -11,7 +11,7 @@ if (file_exists($filename)) {
 $backup = fopen($backupname, "a+");
 file_put_contents($filename, json_encode($data));
 file_put_contents($backupname, json_encode($data));
-$file = file_get_contents('data.json');
+$file = file_get_contents($filename);
 echo $file;
 unset($file);
 unset($backup);
