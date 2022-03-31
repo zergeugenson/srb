@@ -6,6 +6,9 @@ export default {
       if (!state.hiddenWords.includes(word.id)) return word;
     });
   },
+  getGrammar: state => {
+    return state.grammar;
+  },
   getHiddenWords: state => {
     return state.hiddenWords;
   },

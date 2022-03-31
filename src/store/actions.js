@@ -37,5 +37,15 @@ export default {
     } catch (error) {
       console.error(error);
     }
-  }
+  },
+  async _getgrammar({ commit }) {
+    try {
+      const g = await fetch("/assets/grammar.json");
+      let grammar = await g.json();
+      commit("setGrammar", grammar);
+      return grammar;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };

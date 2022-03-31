@@ -23,5 +23,9 @@
     &.on {
       opacity: 0.3;
     }
+    &.grammar,
+    &.cards {
+      background: $green;
+    }
   }
 }

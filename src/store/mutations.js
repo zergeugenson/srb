@@ -2,6 +2,9 @@ export default {
   setRechnik: (state, rechnik) => {
     return (state.rechnik = rechnik);
   },
+  setGrammar: (state, grammar) => {
+    return (state.grammar = grammar);
+  },
   setHidden: (state, hidden_words) => {
     return (state.hiddenWords = hidden_words);
   },

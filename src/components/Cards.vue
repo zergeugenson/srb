@@ -17,6 +17,7 @@
         srb
       </button>
       <button @click="adding = true" class="small-button">add</button>
+      <button class="small-button grammar" @click="$router.push({name: 'Grammar'})">grammar</button>
       <div class="picture">
         <iframe
           :src="src"
@@ -28,16 +29,14 @@
         ></iframe>
       </div>
       <div v-if="visualRechnik && visualRechnik.length">
-        <div class="question">
-          {{ visualRechnik[0][c_lang] | ucFirst }}
-        </div>
+        <h3 class="question">{{ visualRechnik[0][c_lang] | ucFirst }}</h3>
         <div class="reply">
-          <div class="reply-input">
+          <h3 class="reply-input">
             <span v-if="showReply">{{
-              visualRechnik[0][q_lang] | ucFirst
-            }}</span>
+                visualRechnik[0][q_lang] | ucFirst
+              }}</span>
             &nbsp;
-          </div>
+          </h3>
           <button @click="Remember(true)" class="default">Напомни</button>
           <button @click="Remember(false)" v-if="!showReply">Помню</button>
           <button @click="NextWord(false)" class="default" v-else>
@@ -139,7 +138,7 @@ export default {
         setTimeout(() => {
           this.visualRechnik.splice(0, 1);
           this.NextWord();
-        }, 1000);
+        }, 1500);
       }
     },
     Close() {
@@ -239,10 +238,7 @@ export default {
     margin-top: 20px;
   }
   .question {
-    font-weight: 500;
-    font-size: 24px;
     text-align: center;
-    margin: 20px auto;
   }
   .reply {
     text-align: center;
@@ -262,6 +258,7 @@ export default {
       height: 54px;
       padding: 13px;
       margin-bottom: 20px;
+      font-weight: 400;
     }
   }
   .loader-container {
