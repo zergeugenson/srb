@@ -1,7 +1,7 @@
 <template>
   <table v-if="cols" class="gr-table">
     <tr>
-      <th :colspan="cols" class="jopa">{{ header }}</th>
+      <th :colspan="cols" v-html="header" />
     </tr>
     <tr v-for="(row, rowindex) in data" :key="rowindex">
       <td
@@ -49,6 +49,11 @@ table.gr-table tr td {
     padding: 0 3px;
   }
 }
+table.gr-table tr th {
+  b {
+    font-weight: 700;
+  }
+}
 </style>
 
 <style scoped lang="scss">
@@ -64,6 +69,7 @@ th {
   background: $red;
   color: $white;
   text-align: center;
+  font-weight: 400;
 }
 td {
   border: 1px solid $red;

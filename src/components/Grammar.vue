@@ -4,7 +4,18 @@
       cards
     </button>
     <div v-if="grammar && grammar.glagola">
-      <gr-table :header="grammar.glagola.pie.header" :data="grammar.glagola.pie.data" />
+      <gr-table
+        :header="grammar.glagola.pie.header"
+        :data="grammar.glagola.pie.data"
+      />
+      <gr-table
+        :header="grammar.glagola.paju.header"
+        :data="grammar.glagola.paju.data"
+      />
+      <gr-table
+        :header="grammar.glagola.peu.header"
+        :data="grammar.glagola.peu.data"
+      />
     </div>
   </div>
 </template>
@@ -14,11 +25,6 @@ import GrTable from "./GrTable";
 
 export default {
   name: "Grammar",
-  data() {
-    return {
-
-    };
-  },
   computed: {
     grammar() {
       return this.$store.getters["getGrammar"];
@@ -30,10 +36,7 @@ export default {
   methods: {
     async GetGrammar() {
       await this.$store.dispatch("_getgrammar");
-    },
-  },
-  filters: {
-
+    }
   },
   components: {
     GrTable
@@ -48,5 +51,8 @@ export default {
   max-width: 640px;
   margin: auto;
   min-height: 500px;
+  .gr-table {
+    margin-bottom: 30px;
+  }
 }
 </style>

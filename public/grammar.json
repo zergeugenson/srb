@@ -1,7 +1,7 @@
 {
 	"glagola": {
 		"pie": {
-			"header": "PRESENT GLAGOLA(-I/-E)",
+			"header": "PRESENT GLAGOLA <b>(-I/-E)</b>",
 			"data": [
 				[
 					" ",
@@ -13,7 +13,7 @@
 				],
 				[
 					"Ja",
-					"rad<span class='jopa'>i</span>-<b>m</b>",
+					"rad<span>i</span>-<b>m</b>",
 					"uč<span>i</span>-<b>m</b>",
 					"govor<span>i</span>-<b>m</b>",
 					"živ<span>i</span>-<b>m</b>",
@@ -21,7 +21,7 @@
 				],
 				[
 					"Ti",
-					"rad<span class='jopa'>i</span>-<b>š</b>",
+					"rad<span>i</span>-<b>š</b>",
 					"uč<span>i</span>-<b>š</b>",
 					"govor<span>i</span>-<b>š</b>",
 					"živ<span>i</span>-<b>š</b>",
@@ -29,7 +29,7 @@
 				],
 				[
 					"On, Ona, Ono",
-					"rad<span class='jopa'>i</span>",
+					"rad<span>i</span>",
 					"uč<span>i</span>",
 					"govor<span>i</span>",
 					"živ<span>i</span>",
@@ -37,7 +37,7 @@
 				],
 				[
 					"Mi",
-					"rad<span class='jopa'>i</span>-<b>mo</b>",
+					"rad<span>i</span>-<b>mo</b>",
 					"uč<span>i</span>-<b>mo</b>",
 					"govor<span>i</span>-<b>mo</b>",
 					"živ<span>i</span>-<b>mo</b>",
@@ -45,7 +45,7 @@
 				],
 				[
 					"Vi",
-					"rad<span class='jopa'>i</span>-<b>te</b>",
+					"rad<span>i</span>-<b>te</b>",
 					"uč<span>i</span>-<b>te</b>",
 					"govor<span>i</span>-<b>te</b>",
 					"živ<span>i</span>-<b>te</b>",
@@ -58,6 +58,107 @@
 					"govor-<p>e</p>",
 					"živ-<p>e</p>",
 					"vol-<p>e</p>"
+				]
+			]
+		},
+		"paju": {
+			"header": "PRESENT GLAGOLA <b>(-A/-JU)</b>",
+			"data": [
+				[
+					" ",
+					"gledati",
+					"čitati",
+					"kuvati",
+					"slušati"
+				],
+				[
+					"Ja",
+					"gled<span>a</span>-<b>m</b>",
+					"čit<span>a</span>-<b>m</b>",
+					"kuv<span>a</span>-<b>m</b>",
+					"sluš<span>a</span>-<b>m</b>"
+				],
+				[
+					"Ti",
+					"gled<span>a</span>-<b>š</b>",
+					"čit<span>a</span>-<b>š</b>",
+					"kuv<span>a</span>-<b>š</b>",
+					"sluš<span>a</span>-<b>š</b>"
+				],
+				[
+					"On, Ona, Ono",
+					"gled<span>a</span>",
+					"čit<span>a</span>",
+					"kuv<span>a</span>",
+					"sluš<span>a</span>"
+				],
+				[
+					"Mi",
+					"gled<span>a</span>-<b>mo</b>",
+					"čit<span>a</span>-<b>mo</b>",
+					"kuv<span>a</span>-<b>mo</b>",
+					"sluš<span>a</span>-<b>mo</b>"
+				],
+				[
+					"Vi",
+					"gled<span>a</span>-<b>te</b>",
+					"čit<span>a</span>-<b>te</b>",
+					"kuv<span>a</span>-<b>te</b>",
+					"sluš<span>a</span>-<b>te</b>"
+				],
+				[
+					"Oni, One, Ona",
+					"gleda-<p>ju</p>",
+					"čita-<p>ju</p>",
+					"kuva-<p>ju</p>",
+					"sluša-<p>ju</p>"
+				]
+			]
+		},
+		"peu": {
+			"header": "PRESENT GLAGOLA <b>(-E/-U)</b>",
+			"data": [
+				[
+					" ",
+					"iči",
+					"putovati",
+					"kupovati"
+				],
+				[
+					"Ja",
+					"id<span>e</span>-<b>m</b>",
+					"putuj<span>e</span>-<b>m</b>",
+					"kupuj<span>e</span>-<b>m</b>"
+				],
+				[
+					"Ti",
+					"id<span>e</span>-<b>š</b>",
+					"putuj<span>e</span>-<b>š</b>",
+					"kupuj<span>e</span>-<b>š</b>"
+				],
+				[
+					"On, Ona, Ono",
+					"id<span>e</span>",
+					"putuj<span>e</span>",
+					"kupuj<span>e</span>"
+				],
+				[
+					"Mi",
+					"id<span>e</span>-<b>mo</b>",
+					"putuj<span>e</span>-<b>mo</b>",
+					"kupuj<span>e</span>-<b>mo</b>"
+				],
+				[
+					"Vi",
+					"id<span>e</span>-<b>te</b>",
+					"putuj<span>e</span>-<b>te</b>",
+					"kupuj<span>e</span>-<b>te</b>"
+				],
+				[
+					"Oni, One, Ona",
+					"id-<p>u</p>",
+					"putuj-<p>u</p>",
+					"kupuj-<p>u</p>"
 				]
 			]
 		}
