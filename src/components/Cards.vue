@@ -17,7 +17,12 @@
         srb
       </button>
       <button @click="adding = true" class="small-button">add</button>
-      <button class="small-button grammar" @click="$router.push({name: 'Grammar'})">grammar</button>
+      <button
+        class="small-button grammar"
+        @click="$router.push({ name: 'Grammar' })"
+      >
+        grammar
+      </button>
       <div class="picture">
         <iframe
           :src="src"
@@ -33,8 +38,8 @@
         <div class="reply">
           <h3 class="reply-input">
             <span v-if="showReply">{{
-                visualRechnik[0][q_lang] | ucFirst
-              }}</span>
+              visualRechnik[0][q_lang] | ucFirst
+            }}</span>
             &nbsp;
           </h3>
           <button @click="Remember(true)" class="default">Напомни</button>
@@ -42,10 +47,10 @@
           <button @click="NextWord(false)" class="default" v-else>
             Дальше
           </button>
-          <br />
-          <button @click="HideWord(visualRechnik[0])" class="button-hide">
-            Больше не показывай
-          </button>
+<!--          <br />-->
+<!--          <button @click="HideWord(visualRechnik[0])" class="button-hide">-->
+<!--            Больше не показывай-->
+<!--          </button>-->
         </div>
       </div>
     </div>

@@ -12,14 +12,24 @@
     <table v-else>
       <thead>
         <tr>
-          <th @click="SortRechnik('srb')"><span class="sorted">Srpski</span></th>
-          <th @click="SortRechnik('rus')"><span class="sorted">Русский</span></th>
-          <th @click="SortRechnik('eng')"><span class="sorted">English</span></th>
+          <th @click="SortRechnik('srb')">
+            <span class="sorted">Srpski</span>
+          </th>
+          <th @click="SortRechnik('rus')">
+            <span class="sorted">Русский</span>
+          </th>
+          <th @click="SortRechnik('eng')">
+            <span class="sorted">English</span>
+          </th>
           <th class="actions">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="word in rechnik" :class="{ 'hidden': hiddenWords.includes(word.id) }" :key="word.id" >
+        <tr
+          v-for="word in rechnik"
+          :class="{ hidden: hiddenWords.includes(word.id) }"
+          :key="word.id"
+        >
           <td>
             <input type="text" v-model="word.srb" />
           </td>
@@ -62,7 +72,7 @@ export default {
     },
     hiddenWords() {
       return this.$store.getters["getHiddenWords"];
-    },
+    }
   },
   mounted() {
     this.GetRechnik();
