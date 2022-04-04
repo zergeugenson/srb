@@ -1,9 +1,6 @@
 <template>
   <div class="administration">
-    <button
-      onClick="window.location.replace('/')"
-      class="small-button perecluc"
-    >
+    <button onClick="window.location.replace('/')" class="small-button">
       Назад
     </button>
     <p v-if="rechnik.length < 1" class="empty-table">
@@ -40,10 +37,10 @@
             <input type="text" v-model="word.eng" />
           </td>
           <td class="actions">
-            <button class="small-button" @click="DeleteWord(word)">
+            <button class="small-button danger" @click="DeleteWord(word)">
               Delete
             </button>
-            <button class="small-button perecluc" @click="EditWord(word)">
+            <button class="small-button" @click="EditWord(word)">
               Edit
             </button>
             <button class="small-button button-hide" @click="HideWord(word)">

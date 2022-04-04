@@ -8,15 +8,11 @@
 .root-container {
   .small-button {
     border: none;
-    background: $danger-button;
     font-size: 12px;
     padding: 4px 5px;
     margin: 10px 3px;
   }
   button {
-    &.perecluc {
-      background: $default-button;
-    }
     &.button-hide {
       background: $off-button;
     }

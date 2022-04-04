@@ -45,6 +45,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/_variables.scss";
 .grammar-page {
   position: relative;
   padding: 15px;

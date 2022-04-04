@@ -4,25 +4,35 @@
       <div class="loader">...</div>
     </div>
     <div v-if="!adding">
-      <button
-        @click="Lang('rus')"
-        :class="['small-button', 'perecluc', { on: q_lang === 'rus' }]"
-      >
-        rus
-      </button>
-      <button
-        @click="Lang('srb')"
-        :class="['small-button', 'perecluc', { on: q_lang === 'srb' }]"
-      >
-        srb
-      </button>
-      <button @click="adding = true" class="small-button">add</button>
-      <button
-        class="small-button grammar"
-        @click="$router.push({ name: 'Grammar' })"
-      >
-        grammar
-      </button>
+      <div class="control-bar">
+        <div>
+          <button
+            class="small-button grammar"
+            @click="$router.push({ name: 'Grammar' })"
+          >
+            grammar
+          </button>
+        </div>
+        <div>
+          <button
+            @click="Lang('rus')"
+            class="small-button default"
+            :disabled="q_lang === 'rus'"
+          >
+            rus
+          </button>
+          <button
+            @click="Lang('srb')"
+            class="small-button default"
+            :disabled="q_lang === 'srb'"
+          >
+            srb
+          </button>
+          <button @click="adding = true" class="small-button danger">
+            add
+          </button>
+        </div>
+      </div>
       <div class="picture">
         <iframe
           :src="src"
@@ -31,7 +41,7 @@
           allowfullscreen
           scrolling="no"
           allow="encrypted-media;"
-        ></iframe>
+        />
       </div>
       <div v-if="visualRechnik && visualRechnik.length">
         <h3 class="question">{{ visualRechnik[0][c_lang] | ucFirst }}</h3>
@@ -42,15 +52,23 @@
             }}</span>
             &nbsp;
           </h3>
-          <button @click="Remember(true)" class="default">Напомни</button>
-          <button @click="Remember(false)" v-if="!showReply">Помню</button>
+          <button @click="Remember(true)" class="default" :disabled="showReply">
+            Напомни
+          </button>
+          <button @click="Remember(false)" v-if="!showReply" class="sucsess">
+            Помню
+          </button>
           <button @click="NextWord(false)" class="default" v-else>
             Дальше
           </button>
-<!--          <br />-->
-<!--          <button @click="HideWord(visualRechnik[0])" class="button-hide">-->
-<!--            Больше не показывай-->
-<!--          </button>-->
+          <br />
+          <button
+            @click="HideWord(visualRechnik[0])"
+            class="button-hide"
+            v-if="false"
+          >
+            Больше не показывай
+          </button>
         </div>
       </div>
     </div>
@@ -226,12 +244,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/_variables.scss";
 .rechnik-page {
   position: relative;
   padding: 15px;
   max-width: 640px;
   margin: auto;
   min-height: 500px;
+  .control-bar {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    > div {
+      display: inline-block;
+    }
+  }
   .adding {
     text-align: center;
     padding-top: 50px;
@@ -247,12 +275,6 @@ export default {
   }
   .reply {
     text-align: center;
-    .default {
-      background: #0366ee;
-    }
-    .danger {
-      background: #dd2234;
-    }
     button {
       width: 120px;
       &.button-hide {
