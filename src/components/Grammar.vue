@@ -1,8 +1,25 @@
 <template>
-  <div class="grammar-page">
+  <div class="grammar-page" v-if="grammar.padez">
     <button class="small-button cards" @click="$router.push({ name: 'Cards' })">
       cards
     </button>
+    <h2>Падежи</h2>
+    <gr-table
+      rootClass="margenta"
+      :header="grammar.padez.genitiv.header"
+      :data="grammar.padez.genitiv.data"
+    />
+    <gr-table
+      rootClass="margenta"
+      :header="grammar.padez.akuzativ.header"
+      :data="grammar.padez.akuzativ.data"
+    />
+    <gr-table
+      rootClass="margenta"
+      :header="grammar.padez.locativ.header"
+      :data="grammar.padez.locativ.data"
+    />
+    <h2>Глаголы</h2>
     <div v-if="grammar && grammar.glagola">
       <gr-table
         :header="grammar.glagola.pie.header"

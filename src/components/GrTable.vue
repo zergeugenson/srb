@@ -1,5 +1,5 @@
 <template>
-  <table v-if="cols" class="gr-table">
+  <table v-if="cols" :class="['gr-table', [rootClass]]">
     <tr>
       <th :colspan="cols" v-html="header" />
     </tr>
@@ -22,7 +22,8 @@ export default {
   },
   props: {
     data: { type: [Array, Object], default: () => [] },
-    header: { type: String, default: "" }
+    header: { type: String, default: "" },
+    rootClass: { type: String, default: "" }
   },
   computed: {
     cols() {
@@ -63,18 +64,36 @@ table {
   padding: 0;
   margin: 0;
   border-collapse: collapse;
-}
-th {
-  border: 1px solid $red;
-  background: $red;
-  color: $white;
-  text-align: center;
-  font-weight: 400;
-}
-td {
-  border: 1px solid $red;
-  &.subhead {
-    font-weight: 700;
+  th {
+    border: 1px solid $grey;
+    background: $grey;
+    color: $white;
+    text-align: center;
+    font-weight: 400;
+  }
+  td {
+    border: 1px solid $grey;
+    &.subhead {
+      font-weight: 700;
+    }
+  }
+  &.red {
+    td,
+    th {
+      border: 1px solid $red;
+    }
+    th {
+      background: $red;
+    }
+  }
+  &.margenta {
+    td,
+    th {
+      border: 1px solid $margenta;
+    }
+    th {
+      background: $margenta;
+    }
   }
 }
 </style>

@@ -162,5 +162,76 @@
 				]
 			]
 		}
+	},
+	"padez": {
+		"akuzativ": {
+			"header": "AKUZATIV: Винительный <b>(za, u, na, kroz)</b>",
+			"data": [
+				[
+					" ",
+					"m",
+					"f",
+					"n"
+				],
+				[
+					"Singular",
+					"brz kompjuter<br />dobr<span>OG</span> frizer<span>A</span>",
+					"nov<span>U</span> idedj<span>U</span>",
+					"lepo putovanje"
+				],
+				[
+					"Plural",
+					"brz<span>E</span> kompjuter<span>E</span><br />dobr<span>E</span> frizer<span>E</span>",
+					"nove ideje",
+					"lepa putovanja"
+				]
+			]
+		},
+		"locativ": {
+			"header": "LOCATIV: Предложный <b>(u, na, po, o)</b>",
+			"data": [
+				[
+					" ",
+					"m",
+					"f",
+					"n"
+				],
+				[
+					"Singular",
+					"nov<span>OM</span> grad<span>U</span><br />naš<span>EM</span> grad<span>U</span>",
+					"nov<span>OJ</span> zemlj<span>I</span>",
+					"nov<span>OM</span> putovanj<span>U</span><br />naš<span>EM</span> putovanj<span>U</span>"
+				],
+				[
+					"Plural",
+					"nov<span>IM</span> gradov<span>IMA</span>",
+					"nov<span>IM</span> zemlj<span>AMA</span>",
+					"nov<span>IM</span> putovanj<span>IMA</span>"
+				]
+			]
+		},
+		"genitiv": {
+			"header": "GENITIV: Родительный <b>(pre, posle, iz, od, do, tokom)</b>",
+			"data": [
+				[
+					" ",
+					"m",
+					"f",
+					"n"
+				],
+				[
+					"Singular",
+					"hladn<span>OG</span> sok<span>A</span><br />svež<span>EG</span> sok<span>A</span>",
+					"svež<span>E</span> jabuk<span>E</span>",
+					"glavn<span>OG</span> jel<span>A</span><br />domać<span>EG</span> vin<span>A</span>"
+				],
+				[
+					"Plural",
+					"svež<span>IH</span> sokov<span>A</span>",
+					"svež<span>IH</span> jabuk<span>A</span>",
+					"glavn<span>IH</span> jel<span>A</span>"
+				]
+			]
+		}
 	}
 }
