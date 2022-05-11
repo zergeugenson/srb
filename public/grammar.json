@@ -232,6 +232,52 @@
 					"glavn<span>IH</span> jel<span>A</span>"
 				]
 			]
+		},
+		"dativ": {
+			"header": "INSTRUMENTAL: Творительный <b>(ka, prema)</b>",
+			"data": [
+				[
+					" ",
+					"m",
+					"f",
+					"n"
+				],
+				[
+					"Singular",
+					"siromašn<span>OM</span> prijatelj<span>U</span><br />naš<span>EM</span> prijatelj<span>U</span>",
+					"star<span>OJ</span> prijateljic<span>I</span>",
+					"siromašn<span>OM</span> sel<span>U</span><br />naš<span>EM</span> sel<span>U</span>"
+				],
+				[
+					"Plural",
+					"siromašn<span>IM</span> ljud<span>IMA</span>",
+					"star<span>IM</span> prijateljic<span>AMA</span>",
+					"siromašn<span>IM</span> sel<span>IMA</span>"
+				]
+			]
+		},
+		"instrumental": {
+			"header": "INSTRUMENTAL: Творительный <b>(sa)</b>",
+			"data": [
+				[
+					" ",
+					"m",
+					"f",
+					"n"
+				],
+				[
+					"Singular",
+					"леп<span>ИМ</span> шешир<span>ОМ</span><br />леп<span>ИМ</span> каиш<span>ЕМ</span>",
+					"леп<span>ОМ</span> кап<span>ОМ</span>",
+					"леп<span>ИМ</span> одел<span>ОМ</span><br />леп<span>ИМ</span> цвећ<span>ЕМ</span>"
+				],
+				[
+					"Plural",
+					"сунчан<span>ИМ</span> наочар<span>ИМА</span>",
+					"бел<span>ИМ</span> рукавиц<span>AМА</span>",
+					"леп<span>ИМ</span> одел<span>ИМА</span>"
+				]
+			]
 		}
 	}
 }
