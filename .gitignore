@@ -22,3 +22,8 @@ dist
 # StoryBook
 .nuxt-storybook
 storybook-static
+
+#.sh
+getjsons.sh
+sendremote.sh
+
