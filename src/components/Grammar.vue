@@ -16,11 +16,6 @@
     />
     <gr-table
       rootClass="margenta"
-      :header="grammar.padez.locativ.header"
-      :data="grammar.padez.locativ.data"
-    />
-    <gr-table
-      rootClass="margenta"
       :header="grammar.padez.dativ.header"
       :data="grammar.padez.dativ.data"
     />
@@ -28,6 +23,11 @@
         rootClass="margenta"
         :header="grammar.padez.instrumental.header"
         :data="grammar.padez.instrumental.data"
+    />
+    <gr-table
+        rootClass="margenta"
+        :header="grammar.padez.locativ.header"
+        :data="grammar.padez.locativ.data"
     />
     <h2>Глаголы</h2>
     <div v-if="grammar && grammar.glagola">
