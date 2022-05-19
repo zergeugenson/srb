@@ -52,13 +52,13 @@
             }}</span>
             &nbsp;
           </h3>
-          <button @click="Remember(true)" class="default" :disabled="showReply">
+          <button @click="UserResponse(false)" class="default" :disabled="showReply">
             Напомни
           </button>
-          <button @click="Remember(false)" v-if="!showReply" class="sucsess">
+          <button @click="UserResponse(true)" v-if="!showReply" class="sucsess">
             Помню
           </button>
-          <button @click="NextWord(false)" class="default" v-else>
+          <button @click="NextWord()" class="default" v-else>
             Дальше
           </button>
           <br />
@@ -155,9 +155,9 @@ export default {
         this.NextWord();
       });
     },
-    Remember(stop) {
+    UserResponse(shvatio) {
       this.showReply = true;
-      if (!stop) {
+      if (shvatio) {
         setTimeout(() => {
           this.visualRechnik.splice(0, 1);
           this.NextWord();
@@ -192,7 +192,7 @@ export default {
     async HideWord(word) {
       this.$store.commit("hideWord", word.id);
       await this.$store.dispatch("_hide");
-      this.NextWord(true);
+      this.NextWord();
     },
     async post() {
       if (!this.newWord.srb || !this.newWord.rus) {

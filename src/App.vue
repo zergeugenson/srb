@@ -1,6 +1,6 @@
 <template>
   <div class="root-container">
-<!--    <img width="50px" alt="Webpack" src="../src/images/favicon.png" />-->
+    <img alt="logo" src="../src/images/favicon.png" style="display:none" />
     <router-view />
   </div>
 </template>
