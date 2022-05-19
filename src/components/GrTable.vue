@@ -73,6 +73,7 @@ table {
   }
   td {
     border: 1px solid $grey;
+    font-size: 0.9em;
     &.subhead {
       font-weight: 700;
     }
