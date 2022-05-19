@@ -1,4 +1,3 @@
-// Import Vue
 import Vue from "vue";
 import VueRouter from "vue-router";
 import "styles/index.scss";
@@ -11,6 +10,11 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
   linkActiveClass: "active"
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || "";
+  next();
 });
 
 new Vue({
